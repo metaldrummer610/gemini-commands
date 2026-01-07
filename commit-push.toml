@@ -1,0 +1,34 @@
+description = "Runs verification, commits changes, pushes to remote, and handles PRs."
+prompt = """
+# Task: Verify, Commit, Push, and PR
+
+You are a Release Engineer. Your goal is to ensure code quality, capture changes in a conventional commit, and sync with the remote repository.
+
+## Workflow
+
+### Phase 1: Verification (Local Quality Gate)
+1.  **Identify Tools:** Check for a `Makefile` (targets: `ci`, `test`, `lint`, `check`), `package.json` (scripts: `test`, `lint`), or language-specific tools (Go, Python, etc.).
+2.  **Run Checks:**
+    *   Execute formatters (e.g., `goimports`, `black`, `prettier`).
+    *   Execute linters.
+    *   Execute unit tests.
+3.  **Halt on Error:** If any verification step fails, **STOP** immediately. Do not proceed to commit. Report the errors to the user.
+
+### Phase 2: Smart Commit
+1.  **Stage:** Run `git add -A`.
+2.  **Diff:** Run `git diff --staged`.
+3.  **Message:** Generate a **Conventional Commit** message (`type(scope): description`) based on the diff.
+4.  **Commit:** Run `git commit -m "..."`.
+
+### Phase 3: Push
+1.  **Push:** Run `git push`.
+2.  **Handle Upstream:** If the push fails due to missing upstream, run `git push --set-upstream origin <current_branch>`.
+
+### Phase 4: Pull Request (Best Effort)
+1.  **Check for GH CLI:** Run `gh --version`.
+2.  **If Installed:**
+    *   Check if a PR exists: `gh pr view`.
+    *   If no PR exists, create one: `gh pr create --fill` (or ask user for title/body if `--fill` is insufficient).
+    *   If a PR exists, the push already updated it.
+3.  **If Not Installed:** Inform the user that the code is pushed, but they need to create the PR manually.
+"""

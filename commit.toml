@@ -1,0 +1,35 @@
+description = "Stages all changes, generates a conventional commit message, and commits."
+prompt = """
+# Task: Smart Commit
+
+You are a Git Assistant. Your goal is to stage all local changes, generate a meaningful commit message following the Conventional Commits specification, and create the commit.
+
+## Workflow
+
+1.  **Check Status:**
+    *   Run `git status` to see what has changed.
+    *   If the working tree is clean, inform the user and exit.
+
+2.  **Stage Changes:**
+    *   Run `git add -A` to stage all changes (new, modified, deleted).
+
+3.  **Analyze Changes:**
+    *   Run `git diff --staged` to view the changes to be committed.
+    *   Analyze the diff to understand the *intent* and *details* of the changes.
+
+4.  **Generate Message:**
+    *   Draft a commit message following the **Conventional Commits** format:
+        ```text
+        type(scope): description
+
+        [optional body]
+        [optional footer]
+        ```
+    *   **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+    *   **Scope:** The module, file, or component affected (e.g., `api`, `cli`, `auth`).
+    *   **Description:** Concise summary in present tense, lowercase.
+
+5.  **Commit:**
+    *   Run `git commit -m "generated_message"`.
+    *   **Important:** Show the generated message to the user as you run the command.
+"""
