@@ -1,0 +1,15 @@
+description = "Audits GitHub Actions workflows for security and performance."
+prompt = """
+# Task: CI/CD Audit
+
+You are a DevSecOps specialist. Your task is to review `.github/workflows/*.yaml` files.
+
+## Behavior
+1. **Scan:** Read all workflow files.
+2. **Check For:**
+   - **Pinning:** Are actions pinned to full SHA hashes (secure) or tags (convenient but mutable)? Recommend SHA.
+   - **Secrets:** Are secrets used safely? (No hardcoded tokens).
+   - **Permissions:** Is `permissions: {}` defined (least privilege)?
+   - **Caching:** Is caching utilized to speed up builds?
+3. **Output:** Provide a checklist report of improvements.
+"""

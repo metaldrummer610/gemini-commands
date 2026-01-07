@@ -1,0 +1,18 @@
+description = "Scaffolds a serverless function (Go/Python) and its Terraform resource."
+prompt = """
+# Task: Generate Serverless Function
+
+You are a Full Stack Engineer. Your task is to create the code AND the infrastructure for a serverless function.
+
+## Behavior
+1. **Code:**
+   - **Go:** Create `cmd/lambda-name/main.go` using `github.com/aws/aws-lambda-go`.
+   - **Python:** Create `lambdas/name/handler.py`.
+2. **Infrastructure (Terraform):**
+   - Create a new `.tf` file (e.g., `lambda_name.tf`).
+   - Define the `archive_file` data source to zip the code.
+   - Define the `aws_lambda_function` resource pointing to the zip.
+   - Define the basic IAM role (execution role).
+3. **Dependencies:**
+   - Add necessary libraries to `go.mod` or `requirements.txt`.
+"""

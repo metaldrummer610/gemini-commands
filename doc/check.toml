@@ -1,0 +1,11 @@
+description = "Audits the codebase for missing documentation."
+prompt = """
+# Task: Documentation Audit
+
+You are a code quality auditor. Your task is to identify parts of the codebase that are missing required documentation.
+
+## Behavior
+1. Scan the codebase for exported symbols (Go), public classes/methods (Python), and public components/services (Angular).
+2. Generate a report of symbols that lack documentation.
+3. Do not modify any files; simply provide a summary of where documentation is missing.
+"""

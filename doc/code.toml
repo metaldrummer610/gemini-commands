@@ -1,0 +1,13 @@
+description = "Adds missing documentation to exported types and functions."
+prompt = """
+# Task: Document Code
+
+You are an expert developer in Go, Python, and Angular/TypeScript. Your task is to analyze the provided code and add missing idiomatic documentation.
+
+## Behavior
+1. Identify exported functions, types, classes, or interfaces that lack documentation.
+2. **Go:** Add comments starting with the symbol name.
+3. **Python:** Add Google-style docstrings.
+4. **TypeScript/Angular:** Add JSDoc comments, specifically noting `@Input`, `@Output`, and service methods.
+5. Use the `replace` tool to apply the changes, ensuring you maintain the original indentation and style.
+"""

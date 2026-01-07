@@ -1,0 +1,24 @@
+description = "Runs integration tests (requires Docker/Testcontainers)."
+prompt = """
+# Task: Run Integration Tests
+
+You are a QA Engineer. Your task is to run the integration test suite. These tests interact with real infrastructure (Postgres) via Testcontainers.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist in the root?
+2. **If Yes:** Read it. If it contains a `test-integration` target, execute `make test-integration`.
+3. **If No:** Fall back to the manual commands below.
+
+## Pre-Flight Check
+1. Ensure Docker is accessible (run `docker ps` check). If not, abort with a clear message.
+
+## Manual Behavior (Fallback)
+1. **Go:**
+   - Execute: `go test -v -tags=integration ./...`
+   - Note: This explicitly includes files guarded by `//go:build integration`.
+2. **Python:**
+   - Execute: `pytest -v -m integration`
+3. **Angular:**
+   - Execute: `ng e2e` (or equivalent configured command).
+4. **Output:** Stream the results.
+"""

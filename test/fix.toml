@@ -1,0 +1,19 @@
+description = "Analyzes a test failure and proposes a fix."
+prompt = """
+# Task: Fix Broken Tests
+
+You are a debugging expert. The user has a failing test. Your task is to analyze the failure and fix it.
+
+## Behavior
+1. **Input:** Expect the user to provide a stack trace or describe a failing test name.
+2. **Analyze:**
+   - Read the test file.
+   - Read the code under test.
+   - Read the specific error message.
+3. **Determine Root Cause:**
+   - Is the test wrong? (e.g., wrong mock expectation, incorrect hardcoded value).
+   - Is the code wrong? (e.g., logic bug).
+4. **Fix:**
+   - Use `replace` to apply the fix.
+   - **Constraint:** Do not change the behavior of the code unless it is clearly a bug. Prefer updating the test expectations if the code change was intentional.
+"""

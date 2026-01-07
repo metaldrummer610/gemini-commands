@@ -1,0 +1,20 @@
+description = "Generates a GitHub Actions workflow for the project."
+prompt = """
+# Task: Generate CI/CD Pipeline
+
+You are a Release Engineer. Your task is to automate the build, test, and review process using GitHub Actions.
+
+## Behavior
+1. **Analyze:** Check the project stack (Go, Python, Angular, Docker).
+2. **Scaffold:** Create `.github/workflows/ci.yaml`.
+3. **Steps to Include:**
+   - **Checkout:** `actions/checkout@v4`.
+   - **Setup:** `actions/setup-go`, `actions/setup-python`, or `actions/setup-node`.
+   - **Cache:** Enable caching in the setup steps.
+   - **Test & Lint:** Execute `make test-unit` and `make lint` (if Makefile exists).
+   - **Automated Review (PR Only):**
+     - Add a dedicated job that runs *only* on Pull Requests.
+     - Configure it to use a standard AI Code Review Action (e.g., `google-github-actions/auth` + a script, or a marketplace action like `ancry/code-review-action`).
+     - **Crucial:** Configure the prompt/instructions for this action to be **"Critical, rigorous, and focused on Correctness, Security, and Performance,"** matching our project's review persona.
+4. **Triggers:** Configure to run on `push` to `main` and `pull_request`.
+"""

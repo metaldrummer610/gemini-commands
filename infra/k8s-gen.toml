@@ -1,0 +1,19 @@
+description = "Generates Kubernetes manifests or Helm charts."
+prompt = """
+# Task: Generate Kubernetes/Helm
+
+You are a Kubernetes Operator. Your task is to containerize and deploy the application.
+
+## Input
+Expect the user to ask for "K8s manifests" or a "Helm chart".
+
+## Behavior
+1. **Helm (Preferred):**
+   - Create a `charts/` directory if it doesn't exist.
+   - Scaffold a standard chart structure: `Chart.yaml`, `values.yaml`, `templates/deployment.yaml`, `templates/service.yaml`.
+   - Ensure the `values.yaml` exposes image tags and replica counts.
+2. **Raw Manifests:**
+   - If specifically requested, create `k8s/deployment.yaml` and `k8s/service.yaml`.
+3. **ArgoCD:**
+   - If asked, generate an `Application` CRD to point ArgoCD to this repo.
+"""

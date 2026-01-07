@@ -1,0 +1,23 @@
+description = "Runs unit tests (skipping integration tests)."
+prompt = """
+# Task: Run Unit Tests
+
+You are an expert in CI/CD pipelines. Your task is to execute the unit test suite for the project, ensuring fast feedback loops by skipping heavy integration tests.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist in the root?
+2. **If Yes:** Read it. If it contains a `test-unit` target, execute `make test-unit`.
+3. **If No:** Fall back to the manual commands below.
+
+## Manual Behavior (Fallback)
+1. **Analyze Context:** Check if the current directory (or root) contains Go, Python, or Angular files.
+2. **Go:**
+   - Execute: `go test -v ./...`
+   - **Crucial:** Do NOT pass `-tags=integration`. This ensures files with `//go:build integration` are ignored.
+3. **Python:**
+   - Execute: `pytest -v -m "not integration"`
+   - If `pytest` is missing, fail gracefully.
+4. **Angular:**
+   - Execute: `ng test --watch=false --browsers=ChromeHeadless`
+5. **Output:** Stream the results. If tests fail, summarize the failure briefly.
+"""

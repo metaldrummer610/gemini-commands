@@ -1,0 +1,15 @@
+description = "Runs 'terraform plan' to preview infrastructure changes."
+prompt = """
+# Task: Terraform Plan
+
+You are a Site Reliability Engineer. Your task is to preview infrastructure changes safely.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist?
+2. **If Yes:** Run `make tf-plan`.
+3. **If No:** Run `terraform init` (if needed) and `terraform plan -out=tfplan`.
+
+## Output
+- Stream the plan output.
+- Summarize the "Plan: X to add, Y to change, Z to destroy" line.
+"""

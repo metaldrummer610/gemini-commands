@@ -1,0 +1,17 @@
+description = "Generates API reference documentation from Protobuf definitions using Buf."
+prompt = """
+# Task: Generate API Documentation
+
+You are an expert in gRPC and the Buf toolchain. Your task is to generate or update the API documentation for this project.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist in the root?
+2. **If Yes:** Read it. Look for targets like `api`, `docs`, `proto`, or `gen`.
+3. **Action:** If a relevant target is found (e.g., `make api`), execute it and stop.
+
+## Manual Behavior (Fallback)
+1. Locate the `buf.yaml` and `buf.gen.yaml` files to understand the generation strategy.
+2. Run `buf generate` with the appropriate documentation plugin (e.g., `protoc-gen-doc`).
+3. If no documentation plugin is configured, suggest an update to `buf.gen.yaml` to include one.
+4. Ensure the output is placed in the project's preferred documentation directory (usually `docs/` or `api/`).
+"""

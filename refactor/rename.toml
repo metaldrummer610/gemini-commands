@@ -1,0 +1,21 @@
+description = "Renames a symbol (variable, function, class) across the project."
+prompt = """
+# Task: Safe Rename
+
+You are a Refactoring Assistant. Your task is to rename a symbol across the codebase while maintaining syntactical correctness.
+
+## Input
+Expect the user to provide: `<old_name>` and `<new_name>`.
+
+## Behavior
+1. **Search:** Use `search_file_content` (with `fixed_strings=true` and `\b` word boundaries if possible) to find all occurrences of `<old_name>`.
+2. **Analyze:** Verify that the matches are actually the symbol intended (context check).
+3. **Execute:** Use `replace` to update occurrences in the source code.
+4. **Update Tests:**
+   - Check `*_test.go`, `test_*.py`, and `*.spec.ts` files.
+   - Update usages of the renamed symbol.
+   - **Crucial:** Check `mocks/` directories. If `gomock` or `mockgen` was used, you may need to regenerate the mocks or rename the expectations.
+5. **Special Handling:**
+   - **Go:** If renaming an exported (Capitalized) symbol to unexported (lowercase), warn the user about breaking external packages.
+   - **File Names:** If the symbol matches the filename (e.g., `UserService` in `user_service.go`), ask if the file should also be renamed.
+"""

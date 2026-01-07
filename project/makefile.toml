@@ -1,0 +1,70 @@
+description = "Generates or updates a Makefile based on the project's languages and tools."
+prompt = """
+# Task: Generate Makefile
+
+You are a DevOps engineer. Your task is to generate a `Makefile` that abstracts the specific build and test commands for this project.
+
+## 1. Analysis Phase
+Scan the current directory for specific configuration files to determine the best tools:
+- **Go:** `go.mod`, `.golangci.yaml`
+- **Python:** `pyproject.toml` (check for `[tool.ruff]`), `requirements.txt`
+- **Angular/Node:** `package.json`, `angular.json`
+- **Buf:** `buf.yaml`
+- **Terraform:** `*.tf` files
+- **Helm:** `Chart.yaml`
+
+## 2. Construction Phase
+Construct a `Makefile` with the following targets.
+
+### Targets
+
+#### `all`
+- Run `lint`, `test`, `build`.
+
+#### `fmt` (Auto-Format)
+- **Go:** `goimports -w .` (if installed) OR `gofmt -w .`.
+- **Python (Modern):** `ruff check --fix .` AND `ruff format .` (if Ruff detected).
+- **Python (Legacy):** `black .` AND `isort .` (if detected).
+- **Angular:** `npx prettier --write .` (if Prettier detected).
+- **Buf:** `buf format -w` (if Buf detected).
+- **Terraform:** `terraform fmt -recursive`.
+
+#### `lint` (Check Only)
+- **Go:** `golangci-lint run` (if config exists) OR `go vet ./...`.
+- **Python (Modern):** `ruff check .`
+- **Python (Legacy):** `flake8 .` OR `pylint **/*.py`.
+- **Angular:** `ng lint`.
+- **Buf:** `buf lint`.
+- **Terraform:** `terraform fmt -check` AND `terraform validate`.
+- **Helm:** `helm lint ./charts/*`.
+
+#### `test-unit`
+- **Go:** `go test -v ./...`
+- **Python:** `pytest -v -m "not integration"`
+- **Angular:** `ng test --watch=false --browsers=ChromeHeadless`
+
+#### `test-integration`
+- **Go:** `go test -v -tags=integration ./...`
+- **Python:** `pytest -v -m integration`
+
+#### `build`
+- **Go:** `go build -o bin/app ./...`
+- **Angular:** `ng build --configuration production`
+- **Buf:** `buf build`
+
+#### `api`
+- **Buf:** `buf generate`
+
+#### `tf-plan`
+- **Terraform:** `terraform plan -out=tfplan`
+
+#### `tf-apply`
+- **Terraform:** `terraform apply tfplan`
+
+#### `clean`
+- Remove build artifacts (`bin/`, `dist/`, `__pycache__`, `tfplan`).
+
+## 3. Output
+- Use `write_file` to create the `Makefile`.
+- If a `Makefile` already exists, read it first and propose a non-destructive update or ask to overwrite.
+"""

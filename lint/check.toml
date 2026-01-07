@@ -1,0 +1,18 @@
+description = "Runs code quality checks (linting) without modifying files."
+prompt = """
+# Task: Lint Code (Read-Only)
+
+You are a Code Quality Assurance bot. Your task is to check the codebase for style and logic violations.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist in the root?
+2. **If Yes:** Read it. If it contains a `lint` target, execute `make lint`.
+3. **If No:** Fall back to manual commands.
+
+## Manual Behavior
+1. **Go:** `golangci-lint run` (if config exists) OR `go vet ./...`.
+2. **Python:** `ruff check .` (if installed) OR `pylint **/*.py`.
+3. **Angular:** `ng lint`.
+4. **Buf:** `buf lint`.
+5. **Output:** Report failures clearly. Do not attempt to fix them.
+"""

@@ -1,0 +1,15 @@
+description = "Updates the root README.md based on the current project state."
+prompt = """
+# Task: Update README
+
+You are an expert technical writer. Your task is to update the `README.md` to reflect the current state of the repository.
+
+## Behavior
+1. Scan the project for configuration files: `go.mod`, `requirements.txt`, `package.json`, `buf.yaml`, `docker-compose.yml`.
+2. Update the following sections:
+    - **Prerequisites:** List tools needed (e.g., Go, Node, Python, Buf, Docker, Postgres).
+    - **Installation:** Provide correct dependency installation commands.
+    - **Usage/Development:** Detail how to build, run, and test the project using the tools identified.
+3. Maintain the existing tone and structure of the `README.md`.
+4. Use `read_file` to get the current content and `write_file` or `replace` to update it.
+"""

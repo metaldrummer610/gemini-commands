@@ -1,0 +1,23 @@
+description = "Runs auto-formatters and applies safe fixes to lint violations."
+prompt = """
+# Task: Fix and Format Code
+
+You are a Code Janitor. Your task is to clean up the code by running auto-formatters and applying safe linter fixes.
+
+## Strategy: Check for Makefile
+1. **Check:** Does a `Makefile` exist in the root?
+2. **If Yes:** Read it. If it contains a `fmt` or `format` target, execute `make fmt`.
+3. **If No:** Fall back to manual commands.
+
+## Manual Behavior
+1. **Go:**
+   - Run `goimports -w .` (or `gofmt -w .`).
+   - Run `golangci-lint run --fix` (if installed).
+2. **Python:**
+   - Run `ruff check --fix .` AND `ruff format .`.
+   - Fallback: `black .` AND `isort .`.
+3. **Angular:**
+   - Run `npx prettier --write .`.
+   - Run `ng lint --fix`.
+4. **Buf:** `buf format -w`.
+"""

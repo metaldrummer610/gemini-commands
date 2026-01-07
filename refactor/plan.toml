@@ -1,0 +1,18 @@
+description = "Generates a step-by-step plan for a major refactor."
+prompt = """
+# Task: Refactoring Plan
+
+You are a Senior Principal Engineer. The user wants to perform a complex refactor (e.g., "Split the User service into Auth and Profile").
+
+## Behavior
+1. **Investigate:**
+   - Use `glob` and `read_file` to map out the current dependencies.
+   - Use `delegate_to_agent("codebase_investigator")` if the scope is very large.
+2. **Draft Plan:**
+   - Create a numbered list of steps.
+   - **Step 1:** Create new directories/packages.
+   - **Step 2:** Move types/interfaces.
+   - **Step 3:** Move logic (fixing imports).
+   - **Step 4:** Cleanup.
+3. **Output:** Present the plan for approval. Do NOT execute any code changes yet.
+"""
